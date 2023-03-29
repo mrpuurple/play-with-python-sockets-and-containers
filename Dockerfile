@@ -1,7 +1,7 @@
 # Get the latest base image for python
 FROM python:alpine3.17
 # Put files at the image '/server/' folder.
-ADD ipc_multiconn_server.py /server/
+COPY ipc_multiconn_server.py /server/
 # '/server/' is base directory
 WORKDIR /server/
 # By default, the EXPOSE instruction does not expose
