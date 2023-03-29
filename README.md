@@ -133,7 +133,7 @@ python ipc_multiconn_client.py 0.0.0.0 8080 2
 ```
 
 > Now open a new terminal window and try it from outside the container<br>
-this fill **fail** as you do not have access `into` an container just because you set --network=host
+this fill **fail** and there seems to be an open issue about it [here](https://github.com/docker/for-mac/issues/2716) 
 
 ```sh
 python ipc_multiconn_client.py 0.0.0.0 8080 2
@@ -148,7 +148,7 @@ Traceback (most recent call last):
 BrokenPipeError: [Errno 32] Broken pipe
 ```
 
-> netstat shows no open port 8080
+> netstat also shows no open port 8080
 
 ```sh
 (docker-desktop:N/A)ssscse:sockets/ $ netstat -antu | grep LISTEN | grep 8080
