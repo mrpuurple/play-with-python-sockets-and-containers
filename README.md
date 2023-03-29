@@ -8,13 +8,23 @@
 Usage: ipc_multiconn_server.py <host> <port
 ```
 
-```text
+```sh
 python ipc_multiconn_server.py
+```
+
+>output
+
+```text
 Listening on ('0.0.0.0', 8080)
 ```
 
-```text
+```sh
 python ipc_multiconn_server.py 127.0.0.1 9999
+```
+
+>output
+
+```text
 Listening on ('127.0.0.1', 9999)
 ```
 
@@ -38,6 +48,11 @@ docker run --name ipc-server -d -p 8080:8080 ipc-server:1.0
 
 ```sh
 netstat -ant | grep LISTEN | grep 8080
+```
+
+>output
+
+```text
 tcp46      0      0  *.8080                 *.*                    LISTEN
 ```
 
@@ -49,7 +64,11 @@ docker run --name ipc-server -d -P ipc-server:1.0
 
 ```sh
 docker container ls --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}" -a | grep "ipc-server"
+```
 
+>output
+
+```text
 e0760de2fead   ipc-server   0.0.0.0:32769->8080/tcp, 0.0.0.0:32769->8080/ud
 ```
 
@@ -61,6 +80,11 @@ docker run --name ipc-server --env HOST=0.0.0.0 --env PORT=9999 -d -p 9090:9999 
 
 ```sh
 netstat -ant | grep LISTEN | grep 9999
+```
+
+>output
+
+```text
 tcp46      0      0  *.9999                 *.*                    LISTEN
 ```
 
@@ -68,6 +92,12 @@ tcp46      0      0  *.9999                 *.*                    LISTEN
 
 ```sh
 docker container rm ipc-server --force
+```
+
+>output
+
+```text
+ipc-server
 ```
 
 ## Running the client
@@ -78,6 +108,11 @@ Usage: ipc_multiconn_client.py <host> <port> <num_connections>
 
 ```sh
 python ipc_multiconn_client.py 127.0.0.1 8080 2
+```
+
+>output
+
+```text
 Starting connection 1 to ('127.0.0.1', 8080)
 Starting connection 2 to ('127.0.0.1', 8080)
 Sending b'Message 1 from client.' to connection 1
@@ -89,7 +124,6 @@ Closing connection 1
 Received b'Message 1 from client.Message 2 from client.' from connection 2
 Closing connection 2
 ```
-
 
 ## Misc
 
@@ -137,6 +171,11 @@ this fill **fail** and there seems to be an open issue about it [here](https://g
 
 ```sh
 python ipc_multiconn_client.py 0.0.0.0 8080 2
+```
+
+>output
+
+```text
 Starting connection 1 to ('0.0.0.0', 8080)
 Starting connection 2 to ('0.0.0.0', 8080)
 Sending b'Message 1 from client.' to connection 1
@@ -151,5 +190,11 @@ BrokenPipeError: [Errno 32] Broken pipe
 > netstat also shows no open port 8080
 
 ```sh
-(docker-desktop:N/A)ssscse:sockets/ $ netstat -antu | grep LISTEN | grep 8080
+netstat -antu | grep LISTEN | grep 8080
+```
+
+>output
+
+```text
+
 ```
